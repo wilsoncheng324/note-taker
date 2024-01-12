@@ -32,14 +32,9 @@ function createNewNote(body, notesarr) {
     const newNote = body;
 
     if (!Array.isArray(notesarr))
-    notesarr = [];
-    
-    if (notesarr.length === 0)
-    notesarr.push(0);
+        notesarr = [];
 
-    body.id = notesarr[0];
-    notesarr[0]++;
-
+    newNote.id = notesarr.length; 
     notesarr.push(newNote);
     
     writeNotesToFile(notesarr);
@@ -65,7 +60,9 @@ app.post('/api/notes', (req, res) => {
 });
 
 app.delete('/api/notes/:id', (req, res) => {
+    console.log('Deleting note with ID:', req.params.id);
     deleteNote(req.params.id, notes);
+    console.log('Updated notes array:', notes);
     res.json(true);
 });
 
